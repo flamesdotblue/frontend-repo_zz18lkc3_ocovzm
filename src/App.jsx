@@ -1,28 +1,34 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import Header from './components/Header'
+import DonorRegistrationForm from './components/DonorRegistrationForm'
+import BloodRequestForm from './components/BloodRequestForm'
+import DonorSearch from './components/DonorSearch'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [activeTab, setActiveTab] = useState('register')
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
+    <div className="min-h-screen bg-gradient-to-b from-red-50 via-white to-white text-gray-900">
+      <Header activeTab={activeTab} onChangeTab={setActiveTab} />
+
+      <main className="max-w-5xl mx-auto px-4 py-8">
+        <section className="mb-8">
+          <div className="rounded-2xl bg-red-600 text-white p-6 md:p-8 shadow-md">
+            <h1 className="text-2xl md:text-3xl font-bold">Connect Donors with People in Need</h1>
+            <p className="mt-2 text-red-100 max-w-2xl">A simple way for donors across Nepal to register and for seekers to request and find matching donors quickly in their city.</p>
+          </div>
+        </section>
+
+        <div className="grid grid-cols-1 gap-6">
+          {activeTab === 'register' && <DonorRegistrationForm />}
+          {activeTab === 'request' && <BloodRequestForm />}
+          {activeTab === 'search' && <DonorSearch />}
         </div>
-      </div>
+
+        <footer className="mt-10 text-center text-xs text-gray-500">
+          Built for Nepal • Please verify any donor information independently during emergencies.
+        </footer>
+      </main>
     </div>
   )
 }
-
-export default App
